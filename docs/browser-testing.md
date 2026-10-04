@@ -13,7 +13,8 @@ Chromium to trust the environment's CA before running the HTTPS suite.
 The suite checks category selection including independent Wan Kon, empty
 selection, reminders and settings persistence, downloaded ICS content and UTF-8
 folding, presets, themes, mobile overflow, manifest scope, service worker, offline
-reload, preservation of other apps' caches, keyboard focus and reduced motion.
+reload, preservation of other apps' caches, migration from a stale legacy cache,
+keyboard focus and reduced motion.
 iPhone and Android projects exercise their viewport/device settings in Chromium;
 they do not establish Safari, native installation or calendar-client compatibility.
 

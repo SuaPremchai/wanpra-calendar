@@ -1,5 +1,6 @@
 const CACHE_PREFIX = `wanpra:${self.registration.scope}:`;
-const VERSION = `${CACHE_PREFIX}2026.10.04.2`;
+const VERSION = `${CACHE_PREFIX}2026.10.04.3`;
+const cached = async request => (await caches.open(VERSION)).match(request);
 const STATIC = [
   './', './index.html', './styles.css', './manifest.webmanifest', './icon.svg',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
@@ -24,10 +25,10 @@ self.addEventListener('fetch', event => {
         event.waitUntil(caches.open(VERSION).then(cache => cache.put(event.request, clone)));
       }
       return response;
-    }).catch(() => caches.match(event.request)));
+    }).catch(() => cached(event.request)));
     return;
   }
-  event.respondWith(caches.match(event.request).then(hit => hit || fetch(event.request).then(response => {
+  event.respondWith(cached(event.request).then(hit => hit || fetch(event.request).then(response => {
     if (response.ok) {
       const clone = response.clone();
       event.waitUntil(caches.open(VERSION).then(cache => cache.put(event.request, clone)));

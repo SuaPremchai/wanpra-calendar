@@ -24,7 +24,9 @@ delivery and native installation are explicitly not claimed as verified.
 - `index.html`, `src/ui/app.js`, `styles.css`, `sw.js`: Thai install/remove,
   subscribe/unsubscribe and Android import guidance; correct install fallback;
   visible keyboard focus for morning reminders; readable dark-theme panels;
-  scope-specific cache cleanup and version bump so existing installs update.
+  scope-specific cache cleanup and lookup; a regression seeds a stale legacy
+  cache before installation and checks the new UI wins. The cache version bump
+  ensures existing installs update.
 - README, browser testing docs and release checklist: reproducible commands and
   explicit scope of automated versus manual verification.
 
@@ -38,11 +40,11 @@ npm run check
 npm run test:e2e
 ```
 
-Regression suite: 17 Node tests and 21 Chromium browser cases across desktop,
+Regression suite: 18 Node tests and 24 Chromium browser cases across desktop,
 iPhone-width and Android device settings. Browser cases include project-subpath
 loading/refresh, categories, custom download/reminders/persistence, themes/mobile
 overflow, manifest/worker scope, offline reload, cache isolation, keyboard focus
-and reduced motion. Source comparisons cover all 99 dates/lunar labels and all
+and reduced motion, including upgrade from the legacy cache. Source comparisons cover all 99 dates/lunar labels and all
 12 important-day records. Feed comparison is byte-for-byte deterministic.
 
 Stage A clean-source check and CI passed. Stage B live assets and both feeds
@@ -55,8 +57,9 @@ GitHub Actions and must be green before this revision is considered released.
 - Real Apple Calendar, Google Calendar and Outlook import/subscription, alarm
   delivery and refresh/deduplication await the documented manual client tests.
 - Chromium phone emulation does not verify Safari or native PWA installation.
-- Only Makha, Visakha and Asalha Bucha 2026 have independent BOT corroboration.
-  Other 2026 observances use MyHora only; 2027 observances remain provisional.
+- Makha, Visakha and Asalha Bucha have independent BOT corroboration for 2026 and
+  the advance 2027 schedule. Other observances use MyHora only; 2027 statuses
+  conservatively remain provisional pending rechecking ahead of the year.
 - PWA removal and calendar unsubscribe/import removal are separate operations.
   Imported files are snapshots and repeated imports can duplicate events.
 - No accounts, backend, analytics, tracking or personal-data upload was added.

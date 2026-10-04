@@ -49,3 +49,16 @@ test('quality gate rejects missing provenance, false cross-checks and unsupporte
     assert.ok(validateDataset(invalid).length>0);
   }
 });
+
+test('BOT advance 2027 schedule also agrees, without promoting future statuses', () => {
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  for (const [id, name] of [['makha-bucha-2027','Makha'],['visakha-bucha-2027','Visakha'],['asalha-bucha-2027','Asarnha']]) {
+    const reference = evidence.bot2027.rows.find(row => row.holidayDescription.includes(name));
+    const substitution = reference.holidayDescription.match(/Sunday (\d+)(?:st|nd|rd|th) (\w+) (\d{4})/);
+    const [day, month, year] = substitution ? substitution.slice(1) : [reference.date.split(' ').at(-1),reference.month,reference.year];
+    const date = `${year}-${String(months.indexOf(month)+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+    const event = data.events.find(row => row.id===id);
+    assert.equal(event.date,date);
+    assert.equal(event.status,'provisional-source-verified');
+  }
+});

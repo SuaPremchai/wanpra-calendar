@@ -1,9 +1,27 @@
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs/promises';
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async ({ page }, testInfo) => {
+  if (testInfo.title==='legacy cache cannot override newly installed application') return;
   await page.goto('./');
   await expect(page.locator('#summaryTypes')).toHaveText('วันพระ + วันสำคัญ');
+});
+
+test('legacy cache cannot override newly installed application', async ({ page, baseURL }) => {
+  await page.route('**/src/ui/app.js', route => route.fulfill({ body: '', contentType: 'text/javascript' }));
+  await page.goto('./');
+  await page.unroute('**/src/ui/app.js');
+  await page.evaluate(async url => {
+    const legacy = await caches.open('wanpra-v2-20261004');
+    await legacy.put(url, new Response('<html><body>Stale legacy application</body></html>', { headers: { 'Content-Type': 'text/html' } }));
+    await navigator.serviceWorker.register('./sw.js');
+    await navigator.serviceWorker.ready;
+  }, baseURL);
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await page.reload();
+  await expect(page.locator('#summaryTypes')).toHaveText('วันพระ + วันสำคัญ');
+  await expect(page.locator('#help')).toBeVisible();
+  await expect(page.locator('#appError')).toBeHidden();
 });
 
 test('project subpath, refresh and required assets have no errors', async ({ page, request }) => {

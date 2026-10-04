@@ -7,7 +7,7 @@
 MyHora explicitly documents a Thai lunar-day boundary close to sunrise / approximately 06:00–05:59. WanPra stores dates as the source publishes them and does not silently shift them at midnight.
 
 ## Cross-check policy
-The 2026 Makha, Visakha and Asalha Bucha dates are cross-checked with the Bank of Thailand calendar and Notification No. 31/2568. Visakha uses the actual May 31 observance, not the June 1 substitution holiday. Khao Phansa, Atthami and Ok Phansa 2026 are verified against MyHora only. All 2027 important dates remain `provisional-source-verified`.
+The 2026 Makha, Visakha and Asalha Bucha dates are cross-checked with the Bank of Thailand calendar and Notification No. 31/2568. Visakha uses the actual May 31 observance, not the June 1 substitution holiday. Khao Phansa, Atthami and Ok Phansa 2026 are verified against MyHora only. BOT's advance 2027 schedule also corroborates Makha, Visakha and Asalha; all 2027 important dates conservatively remain `provisional-source-verified` pending rechecking ahead of that year.
 
 See [the 2026-10-04 audit](data-verification-2026-10-04.md) for retrieval URLs, comparison outcomes and the correction of Khao Phansa's unsupported cross-check status. All 99 Wan Phra dates and lunar labels and all 12 observances match the retrieved MyHora tables. Source evidence is retained as factual test fixtures with SHA-256 fingerprints.
 

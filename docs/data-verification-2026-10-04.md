@@ -44,8 +44,16 @@ BOT's financial-institution calendar does not corroborate Khao Phansa. Its forme
 `cross-checked` status had no retrievable independent citation in the source
 package and is corrected to `source-verified`, based on MyHora alone. Atthami and
 Ok Phansa 2026 also remain verified against the primary source only. All 2027
-important-day statuses remain `provisional-source-verified`; this audit does not
-claim contemporary official corroboration for them.
+important-day statuses remain `provisional-source-verified`.
+
+BOT's advance 2027 schedule was also retrieved on 2026-10-04:
+https://www.bot.or.th/content/bot/en/financial-institutions-holiday/jcr:content/root/container/holidaycalendar.model.2027.json
+It independently agrees with Makha Bucha on February 21, Visakha Bucha on May 20
+and Asalha Bucha on July 18. The February 22 and July 19 entries are substitution
+holidays, not the actual observance dates. Evidence and regression comparisons
+are recorded separately under `bot2027`. Future event statuses are conservatively
+retained as provisional for rechecking ahead of the supported year; this schedule
+comparison does not promote other 2027 observances or establish their accuracy.
 
 ## Evidence and gate
 

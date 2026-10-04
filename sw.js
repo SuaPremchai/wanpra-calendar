@@ -1,14 +1,14 @@
 const CACHE_PREFIX = `wanpra:${self.registration.scope}:`;
-const VERSION = `${CACHE_PREFIX}2026.10.04.4`;
+const VERSION = `${CACHE_PREFIX}2026.10.04.5`;
 const cached = async request => (await caches.open(VERSION)).match(request);
 const STATIC = [
-  './', './index.html', './styles.css', './manifest.webmanifest', './icons/favicon-32.png',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png',
+  './', './index.html', './styles.css', './manifest.webmanifest', './icons/favicon-32.png?v=2026.10.04.1',
+  './icons/icon-192.png?v=2026.10.04.1', './icons/icon-512.png?v=2026.10.04.1', './icons/icon-maskable-512.png?v=2026.10.04.1', './icons/apple-touch-icon.png?v=2026.10.04.1',
   './src/ui/app.js', './src/core/date.js', './src/core/calendar.js',
   './src/exporters/ics.js', './src/data/repository.js',
 ];
 self.addEventListener('install', event => event.waitUntil(
-  caches.open(VERSION).then(cache => cache.addAll(STATIC)).then(() => self.skipWaiting())
+  caches.open(VERSION).then(cache => cache.addAll(STATIC.map(url => new Request(url, { cache: 'reload' })))).then(() => self.skipWaiting())
 ));
 self.addEventListener('activate', event => event.waitUntil(
   caches.keys().then(keys => Promise.all(

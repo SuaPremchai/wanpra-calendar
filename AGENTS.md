@@ -20,6 +20,8 @@ This is intentionally a small product with production engineering standards. Do 
 - GitHub Pages remains the static PWA. The user-authorized Custom Subscription extension adds a stateless read-only feed endpoint on Vercel Hobby; no accounts, analytics, tracking code, database, or personal-calendar upload.
 - Feed preferences are encoded in a public versioned URL and sent to the feed host when a calendar retrieves it. Do not claim that subscription settings never leave the device; provider infrastructure may retain standard request logs.
 
+- The voluntary support page publishes only the owner-confirmed public recipient. Do not collect donor identity, slips or banking credentials. Keep the 20+ project policy and fresh acknowledgement before UI reveal; do not claim that the page certifies fundraising or tax compliance.
+
 ## Data correctness rules — non-negotiable
 1. Do **not** infer or fabricate Wan Phra dates.
 2. Do **not** extend supported years merely because an algorithm can calculate them.

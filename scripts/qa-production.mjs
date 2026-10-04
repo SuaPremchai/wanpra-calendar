@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import ICAL from 'ical.js';
 import { CUSTOM_FEED_ENDPOINT } from '../src/config.js';
+import { SUPPORT_PAYMENT } from '../src/support-config.js';
 import { buildSubscriptionUrl } from '../src/core/subscription.js';
 import { buildCalendarEvents } from '../src/core/calendar.js';
 
@@ -68,3 +69,16 @@ const post = await get(CUSTOM_FEED_ENDPOINT, { method: 'POST' });
 assert.equal(post.status, 405);
 assert.equal(post.headers.get('allow'), 'GET, HEAD');
 console.log('Production QA passed: public frontend, feed configuration, data revision, profile isolation and error responses.');
+
+const supportPage = await get(new URL('support.html', site));
+assert.equal(supportPage.status, 200);
+const supportHtml = await supportPage.text();
+assert.ok(supportHtml.includes('id="supportAge"') && supportHtml.includes('id="supportConsent"'), 'Support acknowledgement controls missing');
+assert.ok(supportHtml.includes('id="paymentDetails"') && supportHtml.includes('hidden'), 'Support reveal gate missing');
+assert.ok(SUPPORT_PAYMENT && /^\d{10}$/.test(SUPPORT_PAYMENT.number));
+const recipientConfig = await get(new URL('src/support-config.js', site));
+assert.equal(recipientConfig.status, 200);
+const recipientSource = await recipientConfig.text();
+assert.ok(recipientSource.includes(SUPPORT_PAYMENT.number) && recipientSource.includes(SUPPORT_PAYMENT.name), 'Published recipient differs from authorized configuration');
+for (const asset of ['support.css', 'src/ui/support.js']) assert.equal((await get(new URL(asset, site))).status, 200);
+console.log('Production support page passed: required controls, authorized recipient configuration and assets.');

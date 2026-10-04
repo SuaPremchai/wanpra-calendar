@@ -43,6 +43,10 @@ Default feed: `feeds/wanpra-default.ics`
 
 Custom Subscription deployment and activation gate: [`docs/custom-subscription.md`](docs/custom-subscription.md).
 
+## Voluntary project support
+
+The footer links to `support.html`. It requires fresh age-policy and voluntary-support acknowledgement before displaying the owner-authorized public recipient. See [`docs/support-page.md`](docs/support-page.md) for privacy, navigation and legal limits.
+
 ## Architecture
 See `docs/architecture.md`. Data policy is documented in `docs/data-sources.md`.
 

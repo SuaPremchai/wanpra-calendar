@@ -8,6 +8,8 @@
 
 `npm run qa:production` checks the public Pages frontend and configured Vercel feed without authentication: matching dataset revision, independent calendar parsing, three different selections, exact event identities, chosen alarm times, no duplicate alarms, deterministic refresh, profile cache isolation, HEAD, conditional requests and invalid settings. The Production QA workflow runs after successful Pages releases and can also be started manually. It retries briefly because the two hosts deploy independently. This detects deployment problems after release; it is not a substitute for the pre-release gates or an automatic rollback.
 
+Support-page QA also covers age-policy gating, fresh acknowledgement, exact clipboard digits, permission-denied fallback, withdrawal, reload/back reset and official external links. These checks do not certify legal compliance or verify a donor’s age.
+
 ## Native-client acceptance (manual, pending)
 
 Chromium device emulation does not verify Safari or native calendar behavior. Record device/OS/client version and results before claiming support for notification delivery:

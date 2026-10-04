@@ -10,6 +10,10 @@ The text explains purpose, optional participation, donor-controlled amount, manu
 
 Account information is public source code and can be inspected without the UI acknowledgement; the gate is a user flow, not a confidentiality or authentication mechanism.
 
+## Bank identity
+
+The recipient card includes the unmodified official Kasikorn logo, retrieved on 2026-10-04 from https://www.kasikornbank.com/SiteCollectionDocuments/assets/theme-navigation/img/logo2.svg and served locally as `icons/kbank-logo.svg`. It identifies the destination bank; it does not imply bank endorsement or verify account ownership. The visible bank name and recipient verification instructions remain.
+
 ## Bank navigation
 
 K PLUS store links were retrieved from the official Kasikorn page on 2026-10-04:

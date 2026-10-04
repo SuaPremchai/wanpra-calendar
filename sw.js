@@ -1,8 +1,8 @@
 const CACHE_PREFIX = `wanpra:${self.registration.scope}:`;
-const VERSION = `${CACHE_PREFIX}2026.10.04.11`;
+const VERSION = `${CACHE_PREFIX}2026.10.04.12`;
 const cached = async request => (await caches.open(VERSION)).match(request);
 const STATIC = [
-  './', './index.html', './support.html', './support.css', './src/ui/support.js', './src/support-config.js', './styles.css', './manifest.webmanifest', './icons/favicon-32.png?v=2026.10.04.1',
+  './', './index.html', './support.html', './support.css', './icons/kbank-logo.svg', './src/ui/support.js', './src/support-config.js', './styles.css', './manifest.webmanifest', './icons/favicon-32.png?v=2026.10.04.1',
   './icons/icon-192.png?v=2026.10.04.1', './icons/icon-512.png?v=2026.10.04.1', './icons/icon-maskable-512.png?v=2026.10.04.1', './icons/apple-touch-icon.png?v=2026.10.04.1',
   './src/ui/app.js', './src/core/date.js', './src/core/calendar.js',
   './src/exporters/ics.js', './src/data/repository.js',

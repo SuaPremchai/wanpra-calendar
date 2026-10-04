@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run check && node scripts/build-feed.mjs",
+  "outputDirectory": "feed-dist",
+  "functions": {
+    "api/calendar.js": {
+      "includeFiles": "src/data/calendar-data.json",
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [{ "source": "/calendar.ics", "destination": "/api/calendar" }],
+  "redirects": [{ "source": "/", "destination": "https://suapremchai.github.io/wanpra-calendar/", "permanent": false }]
+}

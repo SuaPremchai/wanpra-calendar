@@ -17,7 +17,8 @@ This is intentionally a small product with production engineering standards. Do 
   - Wan Kon (วันโกน), derived from Wan Phra
   - major Buddhist observances
 - PWA and subscribed calendar must be removable/unsubscribable cleanly.
-- No account, analytics, tracking, backend, or personal-data upload in the current architecture.
+- GitHub Pages remains the static PWA. The user-authorized Custom Subscription extension adds a stateless read-only feed endpoint on Vercel Hobby; no accounts, analytics, tracking code, database, or personal-calendar upload.
+- Feed preferences are encoded in a public versioned URL and sent to the feed host when a calendar retrieves it. Do not claim that subscription settings never leave the device; provider infrastructure may retain standard request logs.
 
 ## Data correctness rules — non-negotiable
 1. Do **not** infer or fabricate Wan Phra dates.
@@ -36,6 +37,7 @@ Keep boundaries explicit:
 - `src/ui/` — DOM/browser interaction
 - `scripts/` — build/validation/feed generation
 - `tests/` — deterministic regression tests
+- `api/` — stateless HTTP adapter for Custom Subscription; reuse domain logic and exporter from `src/`.
 
 Do not move calendar math, timezone logic, or ICS serialization into UI code.
 

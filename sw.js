@@ -1,9 +1,9 @@
 const CACHE_PREFIX = `wanpra:${self.registration.scope}:`;
-const VERSION = `${CACHE_PREFIX}2026.10.04.3`;
+const VERSION = `${CACHE_PREFIX}2026.10.04.4`;
 const cached = async request => (await caches.open(VERSION)).match(request);
 const STATIC = [
-  './', './index.html', './styles.css', './manifest.webmanifest', './icon.svg',
-  './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png',
+  './', './index.html', './styles.css', './manifest.webmanifest', './icons/favicon-32.png',
+  './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png',
   './src/ui/app.js', './src/core/date.js', './src/core/calendar.js',
   './src/exporters/ics.js', './src/data/repository.js',
 ];

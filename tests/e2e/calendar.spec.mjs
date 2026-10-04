@@ -34,7 +34,7 @@ test('project subpath, refresh and required assets have no errors', async ({ pag
   await page.reload();
   await expect(page.locator('#appError')).toBeHidden();
   await expect(page.locator('#eventCount')).toHaveText('111 รายการ');
-  for (const asset of ['manifest.webmanifest', 'sw.js', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'src/data/calendar-data.json', 'feeds/wanpra-default.ics', 'feeds/wanpra-only.ics']) {
+  for (const asset of ['manifest.webmanifest', 'sw.js', 'icons/favicon-32.png', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png', 'src/data/calendar-data.json', 'feeds/wanpra-default.ics', 'feeds/wanpra-only.ics']) {
     expect((await request.get(asset)).status(), asset).toBe(200);
   }
   expect(errors).toEqual([]);

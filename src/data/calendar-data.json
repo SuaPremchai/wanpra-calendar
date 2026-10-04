@@ -1,7 +1,7 @@
 {
   "metadata": {
     "schemaVersion": "1.0.0",
-    "datasetVersion": "2026.10.04.1",
+    "datasetVersion": "2026.10.04.2",
     "timezone": "Asia/Bangkok",
     "coverage": {
       "from": "2026-01-03",
@@ -16,7 +16,7 @@
       "2027": 50
     },
     "lunarDayBoundary": "Thai lunar day convention; source notes approximately sunrise/06:00 to 05:59 next day.",
-    "publishedAt": "2026-10-04T09:00:00Z",
+    "publishedAt": "2026-10-04T10:20:00Z",
     "sources": [
       {
         "id": "myhora",
@@ -27,16 +27,24 @@
       },
       {
         "id": "thai-gov-2026",
-        "name": "Thai government/public-sector cross-checks",
-        "role": "Cross-check selected 2026 major Buddhist dates against contemporary public-sector calendars."
+        "name": "Bank of Thailand 2026 holiday calendar and Notification No. 31/2568",
+        "role": "Independent cross-check of 2026 Makha, Visakha (actual observance date, not substitution holiday), and Asalha Bucha. Does not corroborate Khao Phansa.",
+        "url": "https://www.bot.or.th/en/financial-institutions-holiday.html",
+        "referenceUrl": "https://www.bot.or.th/content/dam/bot/fipcs/documents/FPG/2568/EngPDF/25680162.pdf"
       }
     ],
     "qualityNotes": [
-      "2026 major Buddhist dates are cross-checked against contemporary Thai public-sector sources where marked cross-checked.",
+      "2026 Makha, Visakha and Asalha Bucha are cross-checked against Bank of Thailand Notification No. 31/2568; other 2026 observances are source-verified against MyHora only.",
       "2027 major-day labels are provisional until contemporary official calendars are published/confirmed.",
       "No dates beyond 2027 are exposed by the production UI until they pass the same validation gate."
     ],
-    "revision": 1
+    "revision": 2,
+    "verification": {
+      "retrievedOn": "2026-10-04",
+      "audit": "docs/data-verification-2026-10-04.md",
+      "evidence": "tests/fixtures/source-verification-2026-10-04.json",
+      "wanPhraOutcome": "99/99 dates and lunar labels match MyHora; no discrepancies."
+    }
   },
   "events": [
     {
@@ -44,56 +52,64 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2026-001"
+      "id": "wanphra-2026-001",
+      "status": "source-verified"
     },
     {
       "date": "2026-01-11",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2026-002"
+      "id": "wanphra-2026-002",
+      "status": "source-verified"
     },
     {
       "date": "2026-01-18",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2026-003"
+      "id": "wanphra-2026-003",
+      "status": "source-verified"
     },
     {
       "date": "2026-01-26",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2026-004"
+      "id": "wanphra-2026-004",
+      "status": "source-verified"
     },
     {
       "date": "2026-02-02",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2026-005"
+      "id": "wanphra-2026-005",
+      "status": "source-verified"
     },
     {
       "date": "2026-02-10",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2026-006"
+      "id": "wanphra-2026-006",
+      "status": "source-verified"
     },
     {
       "date": "2026-02-16",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2026-007"
+      "id": "wanphra-2026-007",
+      "status": "source-verified"
     },
     {
       "date": "2026-02-24",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2026-008"
+      "id": "wanphra-2026-008",
+      "status": "source-verified"
     },
     {
       "date": "2026-03-03",
@@ -101,91 +117,106 @@
       "name": "วันมาฆบูชา",
       "status": "cross-checked",
       "source": "myhora",
-      "id": "makha-bucha-2026"
+      "id": "makha-bucha-2026",
+      "crossCheckSources": [
+        "thai-gov-2026"
+      ]
     },
     {
       "date": "2026-03-03",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2026-009"
+      "id": "wanphra-2026-009",
+      "status": "source-verified"
     },
     {
       "date": "2026-03-11",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2026-010"
+      "id": "wanphra-2026-010",
+      "status": "source-verified"
     },
     {
       "date": "2026-03-18",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2026-011"
+      "id": "wanphra-2026-011",
+      "status": "source-verified"
     },
     {
       "date": "2026-03-26",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2026-012"
+      "id": "wanphra-2026-012",
+      "status": "source-verified"
     },
     {
       "date": "2026-04-02",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2026-013"
+      "id": "wanphra-2026-013",
+      "status": "source-verified"
     },
     {
       "date": "2026-04-10",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2026-014"
+      "id": "wanphra-2026-014",
+      "status": "source-verified"
     },
     {
       "date": "2026-04-16",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2026-015"
+      "id": "wanphra-2026-015",
+      "status": "source-verified"
     },
     {
       "date": "2026-04-24",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2026-016"
+      "id": "wanphra-2026-016",
+      "status": "source-verified"
     },
     {
       "date": "2026-05-01",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2026-017"
+      "id": "wanphra-2026-017",
+      "status": "source-verified"
     },
     {
       "date": "2026-05-09",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2026-018"
+      "id": "wanphra-2026-018",
+      "status": "source-verified"
     },
     {
       "date": "2026-05-16",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2026-019"
+      "id": "wanphra-2026-019",
+      "status": "source-verified"
     },
     {
       "date": "2026-05-24",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2026-020"
+      "id": "wanphra-2026-020",
+      "status": "source-verified"
     },
     {
       "date": "2026-05-31",
@@ -193,14 +224,18 @@
       "name": "วันวิสาขบูชา",
       "status": "cross-checked",
       "source": "myhora",
-      "id": "visakha-bucha-2026"
+      "id": "visakha-bucha-2026",
+      "crossCheckSources": [
+        "thai-gov-2026"
+      ]
     },
     {
       "date": "2026-05-31",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2026-021"
+      "id": "wanphra-2026-021",
+      "status": "source-verified"
     },
     {
       "date": "2026-06-08",
@@ -215,49 +250,56 @@
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2026-022"
+      "id": "wanphra-2026-022",
+      "status": "source-verified"
     },
     {
       "date": "2026-06-14",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2026-023"
+      "id": "wanphra-2026-023",
+      "status": "source-verified"
     },
     {
       "date": "2026-06-22",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2026-024"
+      "id": "wanphra-2026-024",
+      "status": "source-verified"
     },
     {
       "date": "2026-06-29",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2026-025"
+      "id": "wanphra-2026-025",
+      "status": "source-verified"
     },
     {
       "date": "2026-07-07",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2026-026"
+      "id": "wanphra-2026-026",
+      "status": "source-verified"
     },
     {
       "date": "2026-07-14",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2026-027"
+      "id": "wanphra-2026-027",
+      "status": "source-verified"
     },
     {
       "date": "2026-07-22",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนแปดหลัง (๘๘)",
       "source": "myhora",
-      "id": "wanphra-2026-028"
+      "id": "wanphra-2026-028",
+      "status": "source-verified"
     },
     {
       "date": "2026-07-29",
@@ -265,20 +307,24 @@
       "name": "วันอาสาฬหบูชา",
       "status": "cross-checked",
       "source": "myhora",
-      "id": "asalha-bucha-2026"
+      "id": "asalha-bucha-2026",
+      "crossCheckSources": [
+        "thai-gov-2026"
+      ]
     },
     {
       "date": "2026-07-29",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนแปดหลัง (๘๘)",
       "source": "myhora",
-      "id": "wanphra-2026-029"
+      "id": "wanphra-2026-029",
+      "status": "source-verified"
     },
     {
       "date": "2026-07-30",
       "type": "important",
       "name": "วันเข้าพรรษา",
-      "status": "cross-checked",
+      "status": "source-verified",
       "source": "myhora",
       "id": "khao-phansa-2026"
     },
@@ -287,77 +333,88 @@
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนแปดหลัง (๘๘)",
       "source": "myhora",
-      "id": "wanphra-2026-030"
+      "id": "wanphra-2026-030",
+      "status": "source-verified"
     },
     {
       "date": "2026-08-13",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนแปดหลัง (๘๘)",
       "source": "myhora",
-      "id": "wanphra-2026-031"
+      "id": "wanphra-2026-031",
+      "status": "source-verified"
     },
     {
       "date": "2026-08-21",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2026-032"
+      "id": "wanphra-2026-032",
+      "status": "source-verified"
     },
     {
       "date": "2026-08-28",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2026-033"
+      "id": "wanphra-2026-033",
+      "status": "source-verified"
     },
     {
       "date": "2026-09-05",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2026-034"
+      "id": "wanphra-2026-034",
+      "status": "source-verified"
     },
     {
       "date": "2026-09-11",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2026-035"
+      "id": "wanphra-2026-035",
+      "status": "source-verified"
     },
     {
       "date": "2026-09-19",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2026-036"
+      "id": "wanphra-2026-036",
+      "status": "source-verified"
     },
     {
       "date": "2026-09-26",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2026-037"
+      "id": "wanphra-2026-037",
+      "status": "source-verified"
     },
     {
       "date": "2026-10-04",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2026-038"
+      "id": "wanphra-2026-038",
+      "status": "source-verified"
     },
     {
       "date": "2026-10-11",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2026-039"
+      "id": "wanphra-2026-039",
+      "status": "source-verified"
     },
     {
       "date": "2026-10-19",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2026-040"
+      "id": "wanphra-2026-040",
+      "status": "source-verified"
     },
     {
       "date": "2026-10-26",
@@ -372,112 +429,128 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2026-041"
+      "id": "wanphra-2026-041",
+      "status": "source-verified"
     },
     {
       "date": "2026-11-03",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2026-042"
+      "id": "wanphra-2026-042",
+      "status": "source-verified"
     },
     {
       "date": "2026-11-09",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2026-043"
+      "id": "wanphra-2026-043",
+      "status": "source-verified"
     },
     {
       "date": "2026-11-17",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2026-044"
+      "id": "wanphra-2026-044",
+      "status": "source-verified"
     },
     {
       "date": "2026-11-24",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2026-045"
+      "id": "wanphra-2026-045",
+      "status": "source-verified"
     },
     {
       "date": "2026-12-02",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2026-046"
+      "id": "wanphra-2026-046",
+      "status": "source-verified"
     },
     {
       "date": "2026-12-09",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2026-047"
+      "id": "wanphra-2026-047",
+      "status": "source-verified"
     },
     {
       "date": "2026-12-17",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2026-048"
+      "id": "wanphra-2026-048",
+      "status": "source-verified"
     },
     {
       "date": "2026-12-24",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2026-049"
+      "id": "wanphra-2026-049",
+      "status": "source-verified"
     },
     {
       "date": "2027-01-01",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-001"
+      "id": "wanphra-2027-001",
+      "status": "source-verified"
     },
     {
       "date": "2027-01-07",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-002"
+      "id": "wanphra-2027-002",
+      "status": "source-verified"
     },
     {
       "date": "2027-01-15",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2027-003"
+      "id": "wanphra-2027-003",
+      "status": "source-verified"
     },
     {
       "date": "2027-01-22",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2027-004"
+      "id": "wanphra-2027-004",
+      "status": "source-verified"
     },
     {
       "date": "2027-01-30",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2027-005"
+      "id": "wanphra-2027-005",
+      "status": "source-verified"
     },
     {
       "date": "2027-02-06",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนยี่ (๒)",
       "source": "myhora",
-      "id": "wanphra-2027-006"
+      "id": "wanphra-2027-006",
+      "status": "source-verified"
     },
     {
       "date": "2027-02-14",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2027-007"
+      "id": "wanphra-2027-007",
+      "status": "source-verified"
     },
     {
       "date": "2027-02-21",
@@ -492,84 +565,96 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2027-008"
+      "id": "wanphra-2027-008",
+      "status": "source-verified"
     },
     {
       "date": "2027-03-01",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2027-009"
+      "id": "wanphra-2027-009",
+      "status": "source-verified"
     },
     {
       "date": "2027-03-07",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนสาม (๓)",
       "source": "myhora",
-      "id": "wanphra-2027-010"
+      "id": "wanphra-2027-010",
+      "status": "source-verified"
     },
     {
       "date": "2027-03-15",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2027-011"
+      "id": "wanphra-2027-011",
+      "status": "source-verified"
     },
     {
       "date": "2027-03-22",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2027-012"
+      "id": "wanphra-2027-012",
+      "status": "source-verified"
     },
     {
       "date": "2027-03-30",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2027-013"
+      "id": "wanphra-2027-013",
+      "status": "source-verified"
     },
     {
       "date": "2027-04-06",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสี่ (๔)",
       "source": "myhora",
-      "id": "wanphra-2027-014"
+      "id": "wanphra-2027-014",
+      "status": "source-verified"
     },
     {
       "date": "2027-04-14",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2027-015"
+      "id": "wanphra-2027-015",
+      "status": "source-verified"
     },
     {
       "date": "2027-04-21",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2027-016"
+      "id": "wanphra-2027-016",
+      "status": "source-verified"
     },
     {
       "date": "2027-04-29",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2027-017"
+      "id": "wanphra-2027-017",
+      "status": "source-verified"
     },
     {
       "date": "2027-05-05",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนห้า (๕)",
       "source": "myhora",
-      "id": "wanphra-2027-018"
+      "id": "wanphra-2027-018",
+      "status": "source-verified"
     },
     {
       "date": "2027-05-13",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2027-019"
+      "id": "wanphra-2027-019",
+      "status": "source-verified"
     },
     {
       "date": "2027-05-20",
@@ -584,7 +669,8 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2027-020"
+      "id": "wanphra-2027-020",
+      "status": "source-verified"
     },
     {
       "date": "2027-05-28",
@@ -599,49 +685,56 @@
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2027-021"
+      "id": "wanphra-2027-021",
+      "status": "source-verified"
     },
     {
       "date": "2027-06-04",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนหก (๖)",
       "source": "myhora",
-      "id": "wanphra-2027-022"
+      "id": "wanphra-2027-022",
+      "status": "source-verified"
     },
     {
       "date": "2027-06-12",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2027-023"
+      "id": "wanphra-2027-023",
+      "status": "source-verified"
     },
     {
       "date": "2027-06-19",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2027-024"
+      "id": "wanphra-2027-024",
+      "status": "source-verified"
     },
     {
       "date": "2027-06-27",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2027-025"
+      "id": "wanphra-2027-025",
+      "status": "source-verified"
     },
     {
       "date": "2027-07-03",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนเจ็ด (๗)",
       "source": "myhora",
-      "id": "wanphra-2027-026"
+      "id": "wanphra-2027-026",
+      "status": "source-verified"
     },
     {
       "date": "2027-07-11",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2027-027"
+      "id": "wanphra-2027-027",
+      "status": "source-verified"
     },
     {
       "date": "2027-07-18",
@@ -656,7 +749,8 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2027-028"
+      "id": "wanphra-2027-028",
+      "status": "source-verified"
     },
     {
       "date": "2027-07-19",
@@ -671,77 +765,88 @@
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2027-029"
+      "id": "wanphra-2027-029",
+      "status": "source-verified"
     },
     {
       "date": "2027-08-02",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนแปด (๘)",
       "source": "myhora",
-      "id": "wanphra-2027-030"
+      "id": "wanphra-2027-030",
+      "status": "source-verified"
     },
     {
       "date": "2027-08-10",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2027-031"
+      "id": "wanphra-2027-031",
+      "status": "source-verified"
     },
     {
       "date": "2027-08-17",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2027-032"
+      "id": "wanphra-2027-032",
+      "status": "source-verified"
     },
     {
       "date": "2027-08-25",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2027-033"
+      "id": "wanphra-2027-033",
+      "status": "source-verified"
     },
     {
       "date": "2027-08-31",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนเก้า (๙)",
       "source": "myhora",
-      "id": "wanphra-2027-034"
+      "id": "wanphra-2027-034",
+      "status": "source-verified"
     },
     {
       "date": "2027-09-08",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2027-035"
+      "id": "wanphra-2027-035",
+      "status": "source-verified"
     },
     {
       "date": "2027-09-15",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2027-036"
+      "id": "wanphra-2027-036",
+      "status": "source-verified"
     },
     {
       "date": "2027-09-23",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2027-037"
+      "id": "wanphra-2027-037",
+      "status": "source-verified"
     },
     {
       "date": "2027-09-30",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสิบ (๑๐)",
       "source": "myhora",
-      "id": "wanphra-2027-038"
+      "id": "wanphra-2027-038",
+      "status": "source-verified"
     },
     {
       "date": "2027-10-08",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2027-039"
+      "id": "wanphra-2027-039",
+      "status": "source-verified"
     },
     {
       "date": "2027-10-15",
@@ -756,77 +861,88 @@
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2027-040"
+      "id": "wanphra-2027-040",
+      "status": "source-verified"
     },
     {
       "date": "2027-10-23",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2027-041"
+      "id": "wanphra-2027-041",
+      "status": "source-verified"
     },
     {
       "date": "2027-10-29",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนสิบเอ็ด (๑๑)",
       "source": "myhora",
-      "id": "wanphra-2027-042"
+      "id": "wanphra-2027-042",
+      "status": "source-verified"
     },
     {
       "date": "2027-11-06",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2027-043"
+      "id": "wanphra-2027-043",
+      "status": "source-verified"
     },
     {
       "date": "2027-11-13",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2027-044"
+      "id": "wanphra-2027-044",
+      "status": "source-verified"
     },
     {
       "date": "2027-11-21",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2027-045"
+      "id": "wanphra-2027-045",
+      "status": "source-verified"
     },
     {
       "date": "2027-11-28",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๕ ค่ำ เดือนสิบสอง (๑๒)",
       "source": "myhora",
-      "id": "wanphra-2027-046"
+      "id": "wanphra-2027-046",
+      "status": "source-verified"
     },
     {
       "date": "2027-12-06",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๘ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-047"
+      "id": "wanphra-2027-047",
+      "status": "source-verified"
     },
     {
       "date": "2027-12-13",
       "type": "wanphra",
       "lunarLabel": "ขึ้น ๑๕ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-048"
+      "id": "wanphra-2027-048",
+      "status": "source-verified"
     },
     {
       "date": "2027-12-21",
       "type": "wanphra",
       "lunarLabel": "แรม ๘ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-049"
+      "id": "wanphra-2027-049",
+      "status": "source-verified"
     },
     {
       "date": "2027-12-27",
       "type": "wanphra",
       "lunarLabel": "แรม ๑๔ ค่ำ เดือนอ้าย (๑)",
       "source": "myhora",
-      "id": "wanphra-2027-050"
+      "id": "wanphra-2027-050",
+      "status": "source-verified"
     }
   ]
 }

@@ -2,7 +2,7 @@ import { addDays, bangkokLocalToUtcStamp, compactDate } from "../core/date.js";
 
 const encoder = new TextEncoder();
 export function escapeIcsText(value='') {
-  return String(value).replaceAll('\\','\\\\').replaceAll('\n','\\n').replaceAll(';','\\;').replaceAll(',','\\,');
+  return String(value).replaceAll('\\','\\\\').replace(/\r\n|\r|\n/g,'\\n').replaceAll(';','\\;').replaceAll(',','\\,');
 }
 
 export function foldIcsLine(line) {

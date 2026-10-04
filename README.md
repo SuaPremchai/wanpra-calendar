@@ -14,9 +14,12 @@ Production-grade static-first calendar project designed for GitHub Pages.
 
 ## Quality gates
 ```bash
+npm ci
 npm run check
+npx playwright install --with-deps chromium
+npm run test:e2e
 ```
-Runs dataset validation, Node test suite, deterministic build, and dist integrity checks.
+Runs dataset validation, Node tests including independent ICS parsing and source-evidence comparisons, deterministic build, dist integrity checks and browser regressions under a project subpath.
 
 ## Local development
 Serve the repository over HTTP (service workers/modules do not work correctly from `file://`):
@@ -37,6 +40,11 @@ Default feed: `feeds/wanpra-default.ics`
 
 ## Architecture
 See `docs/architecture.md`. Data policy is documented in `docs/data-sources.md`.
+
+Live site: https://suapremchai.github.io/wanpra-calendar/
+Source audit: [`docs/data-verification-2026-10-04.md`](docs/data-verification-2026-10-04.md).
+Calendar client limitations and manual steps: [`docs/icalendar-interoperability.md`](docs/icalendar-interoperability.md).
+Browser tests: [`docs/browser-testing.md`](docs/browser-testing.md).
 
 ## License
 MIT.

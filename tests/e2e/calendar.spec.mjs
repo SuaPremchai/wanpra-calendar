@@ -94,3 +94,35 @@ test('manifest and service worker remain inside project scope', async ({ page, b
   await page.reload();
   await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
 });
+
+test('offline reload works and worker activation preserves other apps caches', async ({ page, context }) => {
+  await page.evaluate(async () => {
+    await caches.open('another-app-cache');
+    await navigator.serviceWorker.ready;
+    const registration = await navigator.serviceWorker.getRegistration();
+    await registration.unregister();
+    await navigator.serviceWorker.register('./sw.js');
+    await navigator.serviceWorker.ready;
+  });
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await expect.poll(() => page.evaluate(async () => Boolean(await caches.match(new URL('./src/data/calendar-data.json', location.href).href)))).toBe(true);
+  expect(await page.evaluate(() => caches.has('another-app-cache'))).toBe(true);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator('#eventCount')).toHaveText('111 รายการ');
+  await expect(page.locator('#appError')).toBeHidden();
+});
+
+test('keyboard controls have visible focus and reduced motion is respected', async ({ page }) => {
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('link', { name: 'ข้ามไปเนื้อหาหลัก' })).toBeFocused();
+  await page.locator('#morningReminder').focus();
+  await expect(page.locator('#morningReminder')).toBeFocused();
+  const outline = await page.locator('#morningReminder + .switch').evaluate(el => getComputedStyle(el).outlineStyle);
+  expect(outline).not.toBe('none');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#summaryAlert')).toContainText('เช้าวันพระ 06:00');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  expect(await page.locator('html').evaluate(el => getComputedStyle(el).scrollBehavior)).toBe('auto');
+});

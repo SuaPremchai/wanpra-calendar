@@ -10,7 +10,8 @@ Production-grade static-first calendar project designed for GitHub Pages.
 - Client-side `.ics` generation
 - Static subscription feed with the recommended reminder: **1 day before at 17:00 Thailand time**
 - PWA install support
-- No account, backend, analytics, or user-data upload
+- Optional stateless Custom Subscription feed; no account, database or analytics
+- Subscription settings are sent in the feed URL; personal calendar contents are not uploaded
 
 ## Quality gates
 ```bash
@@ -37,6 +38,8 @@ Default feed: `feeds/wanpra-default.ics`
 - reminder: previous day 17:00 Asia/Bangkok
 
 `feeds/wanpra-only.ics` contains Wan Phra only.
+
+Custom Subscription deployment and activation gate: [`docs/custom-subscription.md`](docs/custom-subscription.md).
 
 ## Architecture
 See `docs/architecture.md`. Data policy is documented in `docs/data-sources.md`.

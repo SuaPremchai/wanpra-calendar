@@ -2,6 +2,8 @@ import { buildCalendarEvents, nextEvents, validateDataset } from '../core/calend
 import { formatThaiDate } from '../core/date.js';
 import { loadCalendarDataset } from '../data/repository.js';
 import { generateIcs } from '../exporters/ics.js';
+import { buildSubscriptionUrl } from '../core/subscription.js';
+import { CUSTOM_FEED_ENDPOINT } from '../config.js';
 
 const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
 const SETTINGS_KEY='wanpra.settings.v1';
@@ -21,7 +23,51 @@ function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('sh
 function downloadIcs(){const s=settingsFromForm();const events=selectedEvents();if(!events.length){toast('กรุณาเลือกอย่างน้อย 1 ประเภท');return;}const content=generateIcs(events,{calendarName:'WanPra — วันพระไทย',reminder:{daysBefore:s.daysBefore,time:s.time},extraMorning:s.extraMorning,datasetVersion:dataset.metadata.datasetVersion,sequence:dataset.metadata.revision});const blob=new Blob([content],{type:'text/calendar;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='wanpra-custom.ics';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast(`สร้างปฏิทิน ${events.length} รายการแล้ว`);}
 function subscribeDefault(){const httpsUrl=new URL('./feeds/wanpra-default.ics',location.href).href;const webcal=httpsUrl.replace(/^https:/,'webcal:');if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)){location.href=webcal;return;}navigator.clipboard?.writeText(httpsUrl).then(()=>toast('คัดลอก Subscription URL แล้ว')).catch(()=>{prompt('คัดลอก URL นี้',httpsUrl)});}
 
+function subscribeCustom() {
+  if (!selectedEvents().length) { toast('กรุณาเลือกอย่างน้อย 1 ประเภท'); return; }
+  if (!CUSTOM_FEED_ENDPOINT) { toast('ใช้ไฟล์ .ics หรือ Subscribe ค่าแนะนำได้ในระหว่างนี้'); return; }
+  try {
+    const url = buildSubscriptionUrl(CUSTOM_FEED_ENDPOINT, settingsFromForm());
+    $('#subscriptionUrl').value = url;
+    $('#appleSubscriptionLink').href = url.replace(/^https?:/, 'webcal:');
+    $('#subscriptionProfile').textContent = `${$('#summaryTypes').textContent} • ${$('#summaryAlert').textContent}`;
+    $('#subscriptionPanel').hidden = false;
+    $('#copySubscriptionBtn').textContent = 'คัดลอกลิงก์';
+    $('#subscriptionUrl').focus();
+    $('#subscriptionPanel').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
+  } catch {
+    toast('ตรวจประเภท วัน และเวลาเตือน แล้วลองอีกครั้ง');
+  }
+}
+
+async function copySubscription() {
+  const url = $('#subscriptionUrl').value;
+  if (!url) return;
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(url);
+    $('#copySubscriptionBtn').textContent = 'คัดลอกแล้ว';
+    toast('คัดลอกลิงก์ปฏิทินแล้ว');
+  } catch {
+    $('#subscriptionUrl').focus();
+    $('#subscriptionUrl').select();
+    toast('เลือกข้อความลิงก์แล้ว ใช้เมนูคัดลอกของอุปกรณ์');
+  }
+}
+
+function initSubscription() {
+  $('#customSubscribeBtn').disabled = !CUSTOM_FEED_ENDPOINT;
+  $('#subscriptionUnavailable').hidden = Boolean(CUSTOM_FEED_ENDPOINT);
+  $('#customSubscribeBtn').addEventListener('click', subscribeCustom);
+  $('#copySubscriptionBtn').addEventListener('click', copySubscription);
+  $$('input,select').forEach(el => {
+    if (el.id === 'subscriptionUrl') return;
+    el.addEventListener('change', () => { $('#subscriptionPanel').hidden = true; $('#subscriptionUrl').value = ''; });
+  });
+  $$('.preset').forEach(el => el.addEventListener('click', () => { $('#subscriptionPanel').hidden = true; $('#subscriptionUrl').value = ''; }));
+}
+
 async function init(){dataset=await loadCalendarDataset();const errors=validateDataset(dataset);if(errors.length)throw new Error(`Calendar dataset failed validation: ${errors[0]}`);applySettings(readSettings());$('#dataVersion').textContent=`Dataset ${dataset.metadata.datasetVersion}`;$('#coverage').textContent=`ข้อมูล พ.ศ. ${dataset.metadata.coverage.beYears.join('–')}`;$$('input,select').forEach(el=>el.addEventListener('change',updateSummary));$$('.preset').forEach(btn=>btn.addEventListener('click',()=>{$$('.preset').forEach(b=>b.classList.remove('active'));btn.classList.add('active');$('#daysBefore').value=btn.dataset.days;$('#reminderTime').value=btn.dataset.time;updateSummary();}));$$('[data-scroll]').forEach(btn=>btn.addEventListener('click',()=>$(btn.dataset.scroll).scrollIntoView({behavior:'smooth'})));$('#generateBtn').addEventListener('click',downloadIcs);$('#subscribeBtn').addEventListener('click',subscribeDefault);$('#themeToggle').addEventListener('click',()=>{document.body.classList.toggle('dark');$('#themeToggle').textContent=document.body.classList.contains('dark')?'☀':'☾';});$('#installBtn').addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;}else toast(/iPhone|iPad/.test(navigator.userAgent)?'บน iPhone ใช้ Share → Add to Home Screen':'ใช้เมนู Browser → ติดตั้งแอป / เพิ่มไปยังหน้าจอหลัก');});updateSummary();}
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.error));
-init().catch(error=>{console.error(error);$('#appError').hidden=false;$('#appError').textContent='โหลดข้อมูลปฏิทินไม่สำเร็จ กรุณาลองรีเฟรชอีกครั้ง';});
+init().then(initSubscription).catch(error=>{console.error(error);$('#appError').hidden=false;$('#appError').textContent='โหลดข้อมูลปฏิทินไม่สำเร็จ กรุณาลองรีเฟรชอีกครั้ง';});

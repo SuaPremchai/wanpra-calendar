@@ -1,7 +1,7 @@
 # Browser regression
 
 Run `npm ci`, `npx playwright install --with-deps chromium`, `npm run check`, then
-`npm run test:e2e`. The test server intentionally serves only `/wanpra-calendar/`.
+`npm run test:e2e`. The test server serves the app under `/wanpra-calendar/` and the real custom feed adapter at `/calendar.ics`.
 CI and Pages deployment both require these checks to pass.
 
 To test deployed HTTPS, use
@@ -14,7 +14,9 @@ The suite checks category selection including independent Wan Kon, empty
 selection, reminders and settings persistence, downloaded ICS content and UTF-8
 folding, presets, themes, mobile overflow, manifest scope, service worker, offline
 reload, preservation of other apps' caches, migration from a stale legacy cache,
-keyboard focus and reduced motion.
+keyboard focus and reduced motion. It also checks unconfigured subscription fallback, offline custom downloads/URLs, clipboard denial and overlapping morning alarms.
+
+Public feed checks run separately with `npm run qa:production`; see `qa.md`.
 iPhone and Android projects exercise their viewport/device settings in Chromium;
 they do not establish Safari, native installation or calendar-client compatibility.
 

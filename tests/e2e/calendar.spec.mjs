@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import fs from 'node:fs/promises';
 
 test.beforeEach(async ({ page }, testInfo) => {
-  if (testInfo.title==='legacy cache cannot override newly installed application') return;
+  if (['legacy cache cannot override newly installed application', 'unconfigured subscription keeps working ICS fallback', 'offline reload works and worker activation preserves other apps caches'].includes(testInfo.title)) return;
   await page.goto('./');
   await expect(page.locator('#summaryTypes')).toHaveText('วันพระ + วันสำคัญ');
 });
@@ -114,14 +114,15 @@ test('manifest and service worker remain inside project scope', async ({ page, b
 });
 
 test('offline reload works and worker activation preserves other apps caches', async ({ page, context }) => {
+  await page.route('**/src/ui/app.js', route => route.fulfill({ body: '', contentType: 'text/javascript' }));
+  await page.goto('./');
   await page.evaluate(async () => {
     await caches.open('another-app-cache');
-    await navigator.serviceWorker.ready;
-    const registration = await navigator.serviceWorker.getRegistration();
-    await registration.unregister();
     await navigator.serviceWorker.register('./sw.js');
     await navigator.serviceWorker.ready;
   });
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await page.unroute('**/src/ui/app.js');
   await page.reload();
   await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
   await expect.poll(() => page.evaluate(async () => Boolean(await caches.match(new URL('./src/data/calendar-data.json', location.href).href)))).toBe(true);
@@ -185,4 +186,39 @@ test('custom subscription offers manual copy when clipboard permission is denied
   await page.locator('#customSubscribeBtn').click();
   await expect(page.locator('#toast')).toHaveText('กรุณาเลือกอย่างน้อย 1 ประเภท');
   await expect(page.locator('#subscriptionPanel')).toBeHidden();
+});
+
+test('unconfigured subscription keeps working ICS fallback', async ({ page }) => {
+  await page.route('**/src/config.js', route => route.fulfill({ contentType: 'text/javascript', body: 'export const CUSTOM_FEED_ENDPOINT = null;' }));
+  await page.goto('./');
+  await expect(page.locator('#summaryTypes')).toHaveText('วันพระ + วันสำคัญ');
+  await expect(page.locator('#customSubscribeBtn')).toBeDisabled();
+  await expect(page.locator('#subscriptionUnavailable')).toBeVisible();
+  await expect(page.locator('#subscriptionPanel')).toBeHidden();
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#generateBtn').click();
+  expect(await fs.readFile(await (await downloadPromise).path(), 'utf8')).toContain('BEGIN:VEVENT');
+});
+
+test('offline custom settings still produce a downloadable calendar and persistent subscription URL', async ({ page, context }) => {
+  await page.evaluate(async () => { await navigator.serviceWorker.ready; });
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  await context.setOffline(true);
+  await page.reload();
+  await expect(page.locator('#summaryTypes')).toHaveText('วันพระ + วันสำคัญ');
+  await page.locator('[data-days="0"]').click();
+  await page.locator('label').filter({ has: page.locator('#morningReminder') }).click();
+  await page.locator('#customSubscribeBtn').click();
+  const url = await page.locator('#subscriptionUrl').inputValue();
+  expect(new URL(url).searchParams.get('days')).toBe('0');
+  expect(new URL(url).searchParams.get('time')).toBe('06:00');
+  const downloadPromise = page.waitForEvent('download');
+  await page.locator('#generateBtn').click();
+  const body = await fs.readFile(await (await downloadPromise).path(), 'utf8');
+  expect((body.match(/TRIGGER;VALUE=DATE-TIME:20260102T230000Z/g) || [])).toHaveLength(1);
+  await page.reload();
+  await expect(page.locator('#summaryAlert')).toContainText('วันเดียวกัน เวลา 06:00');
+  await page.locator('#customSubscribeBtn').click();
+  await expect(page.locator('#subscriptionUrl')).toHaveValue(url);
 });

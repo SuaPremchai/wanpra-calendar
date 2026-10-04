@@ -1,5 +1,5 @@
 const CACHE_PREFIX = `wanpra:${self.registration.scope}:`;
-const VERSION = `${CACHE_PREFIX}2026.10.04.6`;
+const VERSION = `${CACHE_PREFIX}2026.10.04.7`;
 const cached = async request => (await caches.open(VERSION)).match(request);
 const STATIC = [
   './', './index.html', './styles.css', './manifest.webmanifest', './icons/favicon-32.png?v=2026.10.04.1',

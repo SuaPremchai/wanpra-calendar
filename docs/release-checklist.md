@@ -7,6 +7,9 @@
 - [x] `dist/` contains no unexpected external dependencies.
 - [x] PWA opens on mobile widths; keyboard focus and reduced-motion regression covered.
 - [x] Subscription feed URL is reachable after deploy.
+- [x] Automated category matrix, alarm boundary and duplicate-alarm QA.
+- [x] Production QA workflow configured for post-release public endpoint checks.
+- [ ] Native-client acceptance matrix in `qa.md` completed.
 - [ ] iOS Apple Calendar subscription smoke test.
 - [ ] Google Calendar import smoke test.
 - [ ] Outlook import smoke test.

@@ -13,6 +13,8 @@ Production-grade static-first calendar project designed for GitHub Pages.
 - Optional stateless Custom Subscription feed; no account, database or analytics
 - Subscription settings are sent in the feed URL; personal calendar contents are not uploaded
 
+QA coverage, production checks and pending native-client acceptance: [`docs/qa.md`](docs/qa.md).
+
 ## Quality gates
 ```bash
 npm ci

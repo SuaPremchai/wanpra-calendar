@@ -36,7 +36,7 @@ export function generateIcs(events, options={}) {
     const alarmDate=addDays(event.date,-reminder.daysBefore);
     lines.push('BEGIN:VEVENT',`UID:${escapeIcsText(event.id)}@wanpra-calendar`,`DTSTAMP:${dtstamp}`,`LAST-MODIFIED:${dtstamp}`,`SEQUENCE:${sequence}`,`DTSTART;VALUE=DATE:${compactDate(event.date)}`,`DTEND;VALUE=DATE:${compactDate(nextDay)}`,`SUMMARY:${escapeIcsText(event.title)}`,`DESCRIPTION:${escapeIcsText(event.description||'')}`,`CATEGORIES:${event.type.toUpperCase()}`,'TRANSP:TRANSPARENT');
     lines.push('BEGIN:VALARM',`TRIGGER;VALUE=DATE-TIME:${bangkokLocalToUtcStamp(alarmDate,reminder.time)}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeIcsText(`เตือน: ${event.title}${event.description?` • ${event.description}`:''}`)}`,'END:VALARM');
-    if (extraMorning && event.type==='wanphra') lines.push('BEGIN:VALARM',`TRIGGER;VALUE=DATE-TIME:${bangkokLocalToUtcStamp(event.date,'06:00')}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeIcsText(`วันนี้วันพระ • ${event.description||''}`)}`,'END:VALARM');
+    if (extraMorning && event.type==='wanphra' && !(reminder.daysBefore===0 && reminder.time==='06:00')) lines.push('BEGIN:VALARM',`TRIGGER;VALUE=DATE-TIME:${bangkokLocalToUtcStamp(event.date,'06:00')}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeIcsText(`วันนี้วันพระ • ${event.description||''}`)}`,'END:VALARM');
     lines.push('END:VEVENT');
   }
   lines.push('END:VCALENDAR');

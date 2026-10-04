@@ -1,0 +1,29 @@
+name: Production QA
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Deploy GitHub Pages]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  public-subscription:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Allow production providers to finish deploying
+        run: |
+          for attempt in 1 2 3; do
+            if npm run qa:production; then exit 0; fi
+            if [ "$attempt" -lt 3 ]; then sleep 20; fi
+          done
+          exit 1

@@ -3,7 +3,7 @@
   "myhora": [
     {
       "year": 2569,
-      "sha256": "a78a5ee7b3e272e52efd6f1866ad1f595a4fc211e4de3ecdb742f9526d497cb2",
+      "sha256": "667a33adb7ece9bad49898cc9c35e4a50941a2a8c17489c0ed592bed84f0fa69",
       "rows": [
         {
           "date": "2026-01-03",
@@ -257,11 +257,12 @@
         }
       ],
       "url": "https://myhora.com/calendar/buddhist.aspx",
-      "retrievedOn": "2026-10-04"
+      "retrievedOn": "2026-10-04",
+      "normalizedTextSha256": "a78a5ee7b3e272e52efd6f1866ad1f595a4fc211e4de3ecdb742f9526d497cb2"
     },
     {
       "year": 2570,
-      "sha256": "f676edef574eca93342a98a6e8e54311c584ef007fa9aa4175a5a430564faa1a",
+      "sha256": "48edb58068f7069ffb57bd3be700ad49b14437a22f629795114c6a5316c46081",
       "rows": [
         {
           "date": "2027-01-01",
@@ -520,7 +521,8 @@
         }
       ],
       "url": "https://myhora.com/calendar/buddhist-2570.aspx",
-      "retrievedOn": "2026-10-04"
+      "retrievedOn": "2026-10-04",
+      "normalizedTextSha256": "f676edef574eca93342a98a6e8e54311c584ef007fa9aa4175a5a430564faa1a"
     }
   ],
   "bot": {
